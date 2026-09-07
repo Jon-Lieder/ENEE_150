@@ -1,11 +1,14 @@
-# Jon Lieder Lab 1
+# ENEE 150
+This repository contains all of the course work, mandatory and optional, completed for ENEE 150
 ---
-## Files to be graded:
-    - TBD. Will update upon final commit and push today
----
-## Files to be ignored:
-    - binary.c
+## Repository Contents
+### Labs
+#### Lab01
+    - ohmlaw.c
     - error.c
-    - ohmslaw.c
     - resistor_matrix.c
-    - voltage_file.c and voltage.txt
+    - binary.c
+    - voltage_file.c | voltage*.txt (tests)
+#### Lab02
+### Projects
+#### Project01
