@@ -22,4 +22,6 @@
     - outputFiles
     - src
         - main.c
+        - resistor.c
+        - measurement.c
     - tests

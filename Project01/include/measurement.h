@@ -8,6 +8,7 @@ typedef struct {
     double current;
     Resistor resistor;
     double power;
+    double resistance;
 } Measurement;
 
 void takeMeasurement();

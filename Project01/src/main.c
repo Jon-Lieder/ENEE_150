@@ -4,6 +4,7 @@
 #include "resistor.h"
 #include "measurement.h"
 #include "physicsCalculations.h"
+#include "constants.h"
 
 //void formatDisplay(double *resistances, double *voltages, double *currents, double *power, double average resistance){}
 
@@ -28,11 +29,7 @@ Measurement makeMeasurement(){
 int main(int argc, char *argv[]){
     // enum continue_loop = {YES, NO};
 //    FILE *input_ptr;
-    
 //    char identifier[10];
-    
-    double voltages[3];
-    double currents[3];
 /*    double power[];
     double resistances[];
     double nominal_resistances[];
@@ -55,7 +52,7 @@ int main(int argc, char *argv[]){
     bool pass_fail;
 */
     Resistor resistor1 = {0};
-    Measurement measurement[3];
+    Measurement measurement[NUMBER_OF_TRIALS];
    
     inputResistor(&resistor1); 
     for (int i=0; i<3; i++){
@@ -63,24 +60,35 @@ int main(int argc, char *argv[]){
 
         printf("Measurement %d\n\n", i+1);
         printf("Enter voltage (V): ", i+1);
-        scanf("%lf", &voltages[i]);
+        scanf("%lf", &measurement[i].voltage);
         printf("Enter current (A): ", i+1);
-        scanf("%lf", &currents[i]);
-        measurement[i].voltage = voltages[i];
-        measurement[i].current = currents[i];
-        measurement[i].power = calculatePower(voltages[i], currents[i]);
-        resistor1.measuredResistance[i] = calculateResistance(voltages[i], currents[i]);
-//        printf("%lf\n", resistor1.measuredResistance[i]);
+        scanf("%lf", &measurement[i].current);
+        measurement[i].power = calculatePower(measurement[i].voltage, measurement[i].current);
+        measurement[i].resistance = calculateResistance(measurement[i].voltage, measurement[i].current);
+        printf("%lf\n", measurement[i].power);
     }
 
-    double avgRes = averageResistance(voltages, currents);
-    resistor1.resistance = calculateResistance(20, 10);
+    double avgRes = averageResistance(measurement);
+    //double avgPow = averagePower(voltages, currents);
+    //resistor1.resistance = calculateResistance(20, 10);
     printf("%lf\n", avgRes);
+    //printf("%lf\n", avgPow);
     //m1.power = calculatePower(20,10);
 //    printf("%lf\n", resistor1.resistance);
 //    printf("%lf\n", measurement[2].power);
     
         //printf("Enter another resistor? (yes/no):\t");
         //scanf("%3s", &continue_loop);
+
+    double maxPow = maximumPower(measurement);
+    double minRes = minimumResistance(measurement);
+    double maxRes = maximumResistance(measurement);
+    
+    printf("Max Pow = %lf\n", maxPow);
+    printf("Min Res = %lf\n", minRes);
+    printf("Max Res = %lf\n", maxRes);
+
+
+
     return 0;
 }
