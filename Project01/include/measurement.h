@@ -10,6 +10,8 @@ typedef struct {
     double power;
 } Measurement;
 
-void takeMeasurement(){}
+void takeMeasurement();
+//double calculatePower(double voltage, double current);
+
 
 #endif

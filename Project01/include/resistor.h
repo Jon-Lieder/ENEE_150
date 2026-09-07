@@ -9,8 +9,11 @@ typedef struct {
     double tolerance;
     double deviation;       
     Status status;            // PASS or FAIL
+    double measuredResistance[3];
 } Resistor;
 
-void input_resistor(Resistor *r);
+void inputResistor(Resistor *r);
+
+//double calculateResistance(double voltage, double current);
 
 #endif
