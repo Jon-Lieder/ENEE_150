@@ -12,3 +12,14 @@
 #### Lab02
 ### Projects
 #### Project01
+    - bin
+        - main.exe
+    - build (temporary)
+        - main.d
+    - include
+        - resistor.h
+        - measurement.h
+    - outputFiles
+    - src
+        - main.c
+    - tests
