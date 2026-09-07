@@ -1,7 +1,7 @@
 # --- CONFIG VARIABLES ---
 CC = gcc                                                # Compiler
 CFLAGS = -Wall -Wextra -g -Iinclude -MMD -MP            # Compiler Flags
-TARGET = bin/main                                       # Target Name
+TARGET = bin/circuitTestAnalyzer.exe                    # Target Name
 
 SRCS = $(wildcard src/*.c)                              # Compile all .c files
 OBJS = $(patsubst src/%.c, build/%.o, $(SRCS))         # Generate .o output files

@@ -11,8 +11,8 @@
 
 
 //void calculatePower(double *voltages, double *currents){}
-const bool PASS = true;
-const bool FAIL = false;
+//const bool PASS = true;
+//const bool FAIL = false;
 
 /*
 Resistor makeResistor(){
@@ -53,8 +53,9 @@ int main(int argc, char *argv[]){
     double percent_deviation;
     bool pass_fail;
 */
-    Resistor r1 = {"r101", 1, 1, 1, PASS};
+    Resistor r1 = {0};
     Measurement m1 = {10, 10, r1, 1};
+    input_resistor(&r1);
 
     return 0;
 }
