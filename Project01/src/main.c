@@ -26,7 +26,8 @@ Measurement makeMeasurement(){
 }
 */
 
-int main(int argc, char *argv[]){
+//int main(int argc, char *argv[]){
+int main(){
     // enum continue_loop = {YES, NO};
 //    FILE *input_ptr;
 //    char identifier[10];
@@ -34,7 +35,6 @@ int main(int argc, char *argv[]){
     double resistances[];
     double nominal_resistances[];
     double tolerances[];
-
     
     double average_resistance;
 
@@ -59,9 +59,9 @@ int main(int argc, char *argv[]){
         measurement[i].resistor = resistor1;
 
         printf("Measurement %d\n\n", i+1);
-        printf("Enter voltage (V): ", i+1);
+        printf("Enter voltage (V): ");
         scanf("%lf", &measurement[i].voltage);
-        printf("Enter current (A): ", i+1);
+        printf("Enter current (A): ");
         scanf("%lf", &measurement[i].current);
         measurement[i].power = calculatePower(measurement[i].voltage, measurement[i].current);
         measurement[i].resistance = calculateResistance(measurement[i].voltage, measurement[i].current);
@@ -80,14 +80,21 @@ int main(int argc, char *argv[]){
         //printf("Enter another resistor? (yes/no):\t");
         //scanf("%3s", &continue_loop);
 
-    double maxPow = maximumPower(measurement);
-    double minRes = minimumResistance(measurement);
-    double maxRes = maximumResistance(measurement);
+    double maximum_power = maximumPower(measurement);
+    double minimum_resistance = minimumResistance(measurement);
+    double maximum_resistance = maximumResistance(measurement);
     
-    printf("Max Pow = %lf\n", maxPow);
-    printf("Min Res = %lf\n", minRes);
-    printf("Max Res = %lf\n", maxRes);
+    printf("Max Pow = %lf\n", maximum_power);
+    printf("Min Res = %lf\n", minimum_resistance);
+    printf("Max Res = %lf\n", maximum_resistance);
 
+    int minimum_resistance_meas = whichMinimumResistance(measurement, minimum_resistance); 
+    int maximum_resistance_meas = whichMaximumResistance(measurement, maximum_resistance);
+    int maximum_power_meas = whichMaximumPower(measurement, maximum_power);
+
+    printf("Minimum resistance measurement = %d\n", minimum_resistance_meas);
+    printf("Maximum resistance measurement = %d\n", maximum_resistance_meas);
+    printf("Maximum power measurement = %d\n", maximum_power_meas);
 
 
     return 0;
