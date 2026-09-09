@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <math.h>
+
 #include "physicsCalculations.h"
 #include "measurement.h"
 #include "constants.h"
@@ -87,4 +89,15 @@ double maximumPower(Measurement measurement[]){
     }
 
     return maximum_power;
+}
+
+
+/*
+ * ------------------------------
+ * |    Statistics Functions    |
+ * ------------------------------
+ */
+
+void percentDeviation(Resistor *resistor, double average_resistance){
+    resistor->percent_deviation = (average_resistance - resistor->nominal_resistance) / resistor->nominal_resistance * 100 ;
 }

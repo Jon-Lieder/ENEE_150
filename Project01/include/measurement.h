@@ -9,6 +9,7 @@ typedef struct {
     Resistor resistor;
     double power;
     double resistance;
+//    double standard_deviation;
 } Measurement;
 
 // void takeMeasurement();

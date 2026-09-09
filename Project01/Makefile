@@ -1,6 +1,7 @@
 # --- CONFIG VARIABLES ---
 CC = gcc                                                # Compiler
 CFLAGS = -Wall -Wextra -g -Iinclude
+LDLIBS = -lm
 #CFLAGS = -Wall -Wextra -g -Iinclude -MMD -MP            # Compiler Flags
 TARGET = bin/circuitTestAnalyzer.exe                    # Target Name
 
@@ -14,7 +15,7 @@ all: $(TARGET)
 
 # Rule to link object files into the final executable
 $(TARGET): $(SRCS) | bin
-	$(CC) $(CFLAGS) $(SRCS) -o $(TARGET)
+	$(CC) $(CFLAGS) $(SRCS) -o $(TARGET) $(LDLIBS)
 
 #build/%.o: src/%.c | build
 #	$(CC) $(CFLAGS) -c $< -o $@

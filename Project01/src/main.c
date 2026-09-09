@@ -96,6 +96,9 @@ int main(){
     printf("Maximum resistance measurement = %d\n", maximum_resistance_meas);
     printf("Maximum power measurement = %d\n", maximum_power_meas);
 
+    percentDeviation(&resistor1, avgRes);    
+    printf("Standard Deviation = %lf\n", resistor1.percent_deviation);
+    printf("Resistor status:%d\n", resistor1.status);
 
     return 0;
 }
