@@ -4,6 +4,7 @@
 typedef enum { FAIL, PASS } Status;
 
 typedef struct {
+    // MAKE EITHER LINKED OR DOUBLY LINKED LIST FOR COUNTS INSIDE OF RECORD COUNTS
     char identifier[5];
     double nominal_resistance;
     double tolerance;
@@ -18,6 +19,9 @@ void inputResistor(Resistor *r);
 void passOrFail(Resistor *resistor);
 
 void outputReport(Resistor *r);
+
+void recordCounts(Resistor *resistor);
+
 //double calculateResistance(double voltage, double current);
 
 #endif

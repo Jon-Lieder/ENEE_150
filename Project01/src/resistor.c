@@ -59,6 +59,10 @@ void passOrFail(Resistor *resistor){
 
 void outputReport(Resistor *r){}
 
+
+void recordCounts(Resistor *resistor){
+    
+}
 //double calculateResistance(double voltage, double current){
 //    return voltage / current;
 //}
