@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdbool.h>
 
 #include "physicsCalculations.h"
 #include "measurement.h"
@@ -27,7 +28,29 @@ double averageResistance(Measurement measurement[]){
 
 
 
-double calculateResistance(double voltage, double current){ return voltage / current; }
+double calculateResistance(double voltage, double current){ 
+    bool input_stream = true;
+    
+    while(input_stream){
+        if(voltage > 0){
+            break;
+        }
+        else{
+            continue;
+        }
+    }
+    while(input_stream){
+        if(current > 0){
+            input_stream = false;
+            break;
+        }
+        else{
+            continue;
+        }
+    }
+    
+    return voltage / current;
+}
 
 
 

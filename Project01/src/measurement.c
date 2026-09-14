@@ -1,7 +1,44 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include "measurement.h"
 #include "constants.h" 
 
+
+
+void obtainVoltage(Measurement *measurement){
+    bool input_stream = true;
+    
+    while(input_stream){
+        printf("Enter voltage (V):\t");
+        scanf("%lf", &measurement->voltage);
+    
+        if(measurement->voltage > 0){
+            input_stream = false;
+            break;
+        }
+        else{
+            continue;
+        }
+    }
+}
+
+
+void obtainCurrent(Measurement *measurement){
+    bool input_stream = true;
+
+    while(input_stream){
+        printf("Enter current (A):\t");
+        scanf("%lf", &measurement->current);
+    
+        if(measurement->current > 0){
+            input_stream = false;
+            break;
+        }
+        else{
+            continue;
+        }
+    }
+}   
 
 
 int whichMaximumResistance(Measurement measurement[], double maximum_resistance){

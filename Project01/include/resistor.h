@@ -15,8 +15,9 @@ typedef struct {
 
 void inputResistor(Resistor *r);
 
-void passOrFail(Resistor resistor);
+void passOrFail(Resistor *resistor);
 
+void outputReport(Resistor *r);
 //double calculateResistance(double voltage, double current);
 
 #endif

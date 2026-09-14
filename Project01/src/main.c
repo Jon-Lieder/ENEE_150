@@ -55,14 +55,19 @@ int main(){
     Measurement measurement[NUMBER_OF_TRIALS];
    
     inputResistor(&resistor1); 
-    for (int i=0; i<3; i++){
+
+    // PUT INTO RESISTOR.C | RESISTOR.H
+    for (int i=0; i < NUMBER_OF_TRIALS; i++){
         measurement[i].resistor = resistor1;
 
         printf("Measurement %d\n\n", i+1);
-        printf("Enter voltage (V): ");
-        scanf("%lf", &measurement[i].voltage);
-        printf("Enter current (A): ");
-        scanf("%lf", &measurement[i].current);
+//        printf("Enter voltage (V): ");
+//        scanf("%lf", &measurement[i].voltage);
+//        printf("Enter current (A): ");
+//        scanf("%lf", &measurement[i].current);
+        obtainVoltage(measurement);
+        obtainCurrent(measurement);
+
         measurement[i].power = calculatePower(measurement[i].voltage, measurement[i].current);
         measurement[i].resistance = calculateResistance(measurement[i].voltage, measurement[i].current);
         printf("%lf\n", measurement[i].power);
@@ -97,6 +102,7 @@ int main(){
     printf("Maximum power measurement = %d\n", maximum_power_meas);
 
     percentDeviation(&resistor1, avgRes);    
+    passOrFail(&resistor1);
     printf("Standard Deviation = %lf\n", resistor1.percent_deviation);
     printf("Resistor status:%d\n", resistor1.status);
 

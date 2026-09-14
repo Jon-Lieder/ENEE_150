@@ -14,6 +14,10 @@ typedef struct {
 
 // void takeMeasurement();
 
+void obtainVoltage(Measurement *measurement);
+
+void obtainCurrent(Measurement *measurement);
+
 int whichMaximumResistance(Measurement measurement[], double maximum_resistance);
 
 int whichMinimumResistance(Measurement measurement[], double minimum_resistance);
