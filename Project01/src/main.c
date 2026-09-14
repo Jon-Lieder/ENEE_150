@@ -28,6 +28,8 @@ Measurement makeMeasurement(){
 
 //int main(int argc, char *argv[]){
 int main(){
+    bool additional_resistor = true;
+    char choice[3] = "yes";
     // enum continue_loop = {YES, NO};
 //    FILE *input_ptr;
 //    char identifier[10];
@@ -51,32 +53,33 @@ int main(){
     double percent_deviation;
     bool pass_fail;
 */
-    Resistor resistor1 = {0};
-    Measurement measurement[NUMBER_OF_TRIALS];
+    while(additional_resistor){
+        Resistor resistor1 = {0};
+        Measurement measurement[NUMBER_OF_TRIALS];
    
-    inputResistor(&resistor1); 
+        inputResistor(&resistor1); 
 
     // PUT INTO RESISTOR.C | RESISTOR.H
-    for (int i=0; i < NUMBER_OF_TRIALS; i++){
-        measurement[i].resistor = resistor1;
+        for (int i=0; i < NUMBER_OF_TRIALS; i++){
+            measurement[i].resistor = resistor1;
 
-        printf("Measurement %d\n\n", i+1);
+            printf("Measurement %d\n\n", i+1);
 //        printf("Enter voltage (V): ");
 //        scanf("%lf", &measurement[i].voltage);
 //        printf("Enter current (A): ");
 //        scanf("%lf", &measurement[i].current);
-        obtainVoltage(measurement);
-        obtainCurrent(measurement);
+            obtainVoltage(measurement);
+            obtainCurrent(measurement);
+            printf("Here %d times", i+1);
+            measurement[i].power = calculatePower(measurement[i].voltage, measurement[i].current);
+            measurement[i].resistance = calculateResistance(measurement[i].voltage, measurement[i].current);
+//        printf("%lf\n", measurement[i].power);
+        }
 
-        measurement[i].power = calculatePower(measurement[i].voltage, measurement[i].current);
-        measurement[i].resistance = calculateResistance(measurement[i].voltage, measurement[i].current);
-        printf("%lf\n", measurement[i].power);
-    }
-
-    double avgRes = averageResistance(measurement);
+        double avgRes = averageResistance(measurement);
     //double avgPow = averagePower(voltages, currents);
     //resistor1.resistance = calculateResistance(20, 10);
-    printf("%lf\n", avgRes);
+        printf("%lf\n", avgRes);
     //printf("%lf\n", avgPow);
     //m1.power = calculatePower(20,10);
 //    printf("%lf\n", resistor1.resistance);
@@ -85,26 +88,39 @@ int main(){
         //printf("Enter another resistor? (yes/no):\t");
         //scanf("%3s", &continue_loop);
 
-    double maximum_power = maximumPower(measurement);
-    double minimum_resistance = minimumResistance(measurement);
-    double maximum_resistance = maximumResistance(measurement);
+        double maximum_power = maximumPower(measurement);
+        double minimum_resistance = minimumResistance(measurement);
+        double maximum_resistance = maximumResistance(measurement);
     
-    printf("Max Pow = %lf\n", maximum_power);
-    printf("Min Res = %lf\n", minimum_resistance);
-    printf("Max Res = %lf\n", maximum_resistance);
+        printf("Max Pow = %lf\n", maximum_power);
+        printf("Min Res = %lf\n", minimum_resistance);
+        printf("Max Res = %lf\n", maximum_resistance);
 
-    int minimum_resistance_meas = whichMinimumResistance(measurement, minimum_resistance); 
-    int maximum_resistance_meas = whichMaximumResistance(measurement, maximum_resistance);
-    int maximum_power_meas = whichMaximumPower(measurement, maximum_power);
+        int minimum_resistance_meas = whichMinimumResistance(measurement, minimum_resistance); 
+        int maximum_resistance_meas = whichMaximumResistance(measurement, maximum_resistance);
+        int maximum_power_meas = whichMaximumPower(measurement, maximum_power);
 
-    printf("Minimum resistance measurement = %d\n", minimum_resistance_meas);
-    printf("Maximum resistance measurement = %d\n", maximum_resistance_meas);
-    printf("Maximum power measurement = %d\n", maximum_power_meas);
+        printf("Minimum resistance measurement = %d\n", minimum_resistance_meas);
+        printf("Maximum resistance measurement = %d\n", maximum_resistance_meas);
+        printf("Maximum power measurement = %d\n", maximum_power_meas);
 
-    percentDeviation(&resistor1, avgRes);    
-    passOrFail(&resistor1);
-    printf("Standard Deviation = %lf\n", resistor1.percent_deviation);
-    printf("Resistor status:%d\n", resistor1.status);
+        percentDeviation(&resistor1, avgRes);    
+        passOrFail(&resistor1);
+        printf("Standard Deviation = %lf\n", resistor1.percent_deviation);
+        printf("Resistor status:%d\n", resistor1.status);
+
+        printf("Add additional resistor? (Yes/No):\t");
+        scanf("%s", &choice);
+        
+        if(choice == "Yes"){
+            continue;
+        }
+
+        else{
+            additional_resistor = false;
+            break;
+        }
+    }
 
     return 0;
 }
