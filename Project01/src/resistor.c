@@ -23,6 +23,8 @@ void inputResistor(Resistor *r){
             continue;
         }
     }
+    
+    input_stream = true; 
 
     while(input_stream){
         printf("Enter the allowable tolerance as a percentage in range of [0%%, 100%%]:\t");

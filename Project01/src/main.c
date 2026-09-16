@@ -1,92 +1,60 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "resistor.h"
 #include "measurement.h"
 #include "physicsCalculations.h"
 #include "constants.h"
+#include "formatting.h"
 
 //void formatDisplay(double *resistances, double *voltages, double *currents, double *power, double average resistance){}
 
 
-//void calculateResistance(double *voltages, double *currents){}
-
-
-//void calculatePower(double *voltages, double *currents){}
-//const bool PASS = true;
-//const bool FAIL = false;
-
-/*
-Resistor makeResistor(){
-    return resistor; 
-}
-
-Measurement makeMeasurement(){ 
-    return measurementi;  
-}
-*/
-
 //int main(int argc, char *argv[]){
 int main(){
     bool additional_resistor = true;
-    char choice[3] = "yes";
-    // enum continue_loop = {YES, NO};
-//    FILE *input_ptr;
+    char choice[] = "yes";
+    FILE *outputfile_ptr;
+    int count = 1;
+    int capacity = 2;
+    Resistor *resistors = malloc(capacity * sizeof(Resistor));
+
 //    char identifier[10];
-/*    double power[];
-    double resistances[];
-    double nominal_resistances[];
-    double tolerances[];
-    
-    double average_resistance;
+    outputfile_ptr = fopen("circuit_data.txt", "w");
 
-    double minimum_resistance;
-    double maximum_resistance;
-    double maximum_power;
+    if(outputfile_ptr == NULL){
+        printf("Error opening or creating the file.\n");
+        return 1;
+    }
 
-    int measurement_number;
-    int valid_records;
-    int invalid_records;
-    int passing_components;
-    int failing_components;
-
-    double percent_deviation;
-    bool pass_fail;
-*/
     while(additional_resistor){
-        Resistor resistor1 = {0};
+
+        if (count == capacity){
+            capacity += 1;
+            Resistor *temp = realloc(resistors, capacity * sizeof(Resistor));
+            resistors = temp;
+
+        }
+
         Measurement measurement[NUMBER_OF_TRIALS];
-   
-        inputResistor(&resistor1); 
+ 
+        inputResistor(&resistors[count - 1]); 
 
     // PUT INTO RESISTOR.C | RESISTOR.H
         for (int i=0; i < NUMBER_OF_TRIALS; i++){
-            measurement[i].resistor = resistor1;
+            measurement[i].resistor = resistors[count - 1];
 
             printf("Measurement %d\n\n", i+1);
-//        printf("Enter voltage (V): ");
-//        scanf("%lf", &measurement[i].voltage);
-//        printf("Enter current (A): ");
-//        scanf("%lf", &measurement[i].current);
-            obtainVoltage(measurement);
-            obtainCurrent(measurement);
-            printf("Here %d times", i+1);
+            obtainVoltage(&measurement[i]);
+            obtainCurrent(&measurement[i]);
             measurement[i].power = calculatePower(measurement[i].voltage, measurement[i].current);
             measurement[i].resistance = calculateResistance(measurement[i].voltage, measurement[i].current);
-//        printf("%lf\n", measurement[i].power);
         }
 
         double avgRes = averageResistance(measurement);
-    //double avgPow = averagePower(voltages, currents);
-    //resistor1.resistance = calculateResistance(20, 10);
         printf("%lf\n", avgRes);
-    //printf("%lf\n", avgPow);
-    //m1.power = calculatePower(20,10);
-//    printf("%lf\n", resistor1.resistance);
-//    printf("%lf\n", measurement[2].power);
-    
-        //printf("Enter another resistor? (yes/no):\t");
-        //scanf("%3s", &continue_loop);
 
         double maximum_power = maximumPower(measurement);
         double minimum_resistance = minimumResistance(measurement);
@@ -104,15 +72,17 @@ int main(){
         printf("Maximum resistance measurement = %d\n", maximum_resistance_meas);
         printf("Maximum power measurement = %d\n", maximum_power_meas);
 
-        percentDeviation(&resistor1, avgRes);    
-        passOrFail(&resistor1);
-        printf("Standard Deviation = %lf\n", resistor1.percent_deviation);
-        printf("Resistor status:%d\n", resistor1.status);
+        percentDeviation(&resistors[count - 1], avgRes);    
+        passOrFail(&resistors[count - 1]);
+        printf("Standard Deviation = %lf\n", resistors[count - 1].percent_deviation);
+        printf("Resistor status:%d\n", resistors[count - 1].status);
 
         printf("Add additional resistor? (Yes/No):\t");
         scanf("%s", &choice);
+        printf("%s\n", choice);
         
-        if(choice == "Yes"){
+        if(!strcmp(choice, "Yes")){
+            count++;
             continue;
         }
 
@@ -120,7 +90,12 @@ int main(){
             additional_resistor = false;
             break;
         }
+
+//        displayToFile();    
+
     }
+    
+    fclose(outputfile_ptr);
 
     return 0;
 }
