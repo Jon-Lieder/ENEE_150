@@ -18,8 +18,6 @@
  */
 
 
-
-
 // Include the standard input/output library for printf
 #include <stdio.h>
 // Inlucde string.h to concatenate in/out files with known directories

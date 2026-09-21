@@ -65,16 +65,16 @@ double calculateResistance(double voltage, double current){
 
 
 int main(){
-    int expression;
+    int user_choice;
     double voltage;
     double current;
     double resistance;
     
     printf("OHM'S LAW CALCULATOR\n\n1. Calculate Voltage\n2. Calculate Current\n3. Calculate Resistance\n\n");
     printf("Enter Selection: ");
-    scanf("%d", &expression);
+    scanf("%d", &user_choice);
 
-    switch (expression){
+    switch (user_choice){
         case 1:
             printf("Enter current in amperes: ");
             scanf("%lf", &current);

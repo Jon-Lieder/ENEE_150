@@ -1,13 +1,11 @@
 
 CC = gcc                                                # Compiler
-CFLAGS = -Wall -Wextra -g -Iinclude
+CFLAGS = -Wall -Wextra -g -Iinclude                     # Compiler Flags
 LDLIBS = -lm
-#CFLAGS = -Wall -Wextra -g -Iinclude -MMD -MP            # Compiler Flags
-TARGET = bin/matrix.exe                    # Target Name
+TARGET = bin/matrix.exe                                 # Target Name
 
 SRCS = $(wildcard src/*.c)                              # Compile all .c files
-OBJS = $(patsubst src/%.c, obj/%.o, $(SRCS))                     # Generate .o output files
-#DEPS = $(OBJ:.o=.d)                                     # Find all local custom header files
+OBJS = $(patsubst src/%.c, obj/%.o, $(SRCS))            # Generate .o output files
 
 # --- TARGET RULES ---
 .PHONY: clean cleanall

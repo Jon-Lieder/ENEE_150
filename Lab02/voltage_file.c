@@ -26,7 +26,6 @@
  *      Nothing
  */
 void voltageRead(FILE *file_ptr){
-    int i = 0;
     int count = 0;
     float voltages[8];
     float maximum_voltage = 0;
@@ -34,18 +33,17 @@ void voltageRead(FILE *file_ptr){
     float voltages_sum = 0;
     float average_voltage = 0;
 
-    while(fscanf(file_ptr, "%f", &voltages[i]) != EOF){
-        if (voltages[i] < minimum_voltage){
-            minimum_voltage = voltages[i];
+    while(fscanf(file_ptr, "%f", &voltages[count]) != EOF){
+        if (voltages[count] < minimum_voltage){
+            minimum_voltage = voltages[count];
         }
         
-        if (voltages[i] > maximum_voltage){
-            maximum_voltage = voltages[i];
+        if (voltages[count] > maximum_voltage){
+            maximum_voltage = voltages[count];
         }
 
-        voltages_sum += voltages[i];
+        voltages_sum += voltages[count];
         count++;
-        i++;
     }
 
     average_voltage = voltages_sum / count;
