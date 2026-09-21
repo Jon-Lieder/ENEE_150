@@ -52,11 +52,9 @@ void obtainCurrent(Measurement *measurement){
     
         if(measurement->current > 0){
             input_stream = false;
-            printf("Condition met\n");
             break;
         }
         else{
-            printf("Condition met\n");
             continue;
         }
     }

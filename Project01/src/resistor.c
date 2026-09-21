@@ -64,8 +64,6 @@ void inputResistor(Resistor *resistor){
  *      Nothing
  */
 void passOrFail(Resistor *resistor){
-    printf("deviation = %lf\n", resistor->percent_deviation);
-    printf("tolerance = %lf\n", resistor->tolerance);
     switch(fabs(resistor->percent_deviation) > resistor->tolerance){
         case 0: // deviation LESS THAN tolerance
             resistor->status = PASS;

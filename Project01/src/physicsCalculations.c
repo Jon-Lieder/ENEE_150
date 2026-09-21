@@ -29,11 +29,7 @@ double averageResistance(Measurement measurement[]){
     
     for (int i = 0; i < 3; i++){
         average_resistance += measurement[i].voltage / ( measurement[i].current * NUMBER_OF_TRIALS );
-        printf("loop in physicsCalculations.c\n");
-        printf("Volage: %lf (V)\n", measurement[i].voltage);
-        printf("Current: %lf (A)\n", measurement[i].current);
     }
-    printf("Average Resistance = %lf\n", average_resistance);
     
     return average_resistance;
 }
