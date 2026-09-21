@@ -42,12 +42,10 @@ int main(int argc, char *argv[]){
     int maximum_power_meas, minimum_resistance_meas, maximum_resistance_meas;
 
     double avgRes, maximum_power, minimum_resistance, maximum_resistance;
-    
+  
     // Dynamic memory allocation. Determines the memory size each Resistor takes to allow for
     // n Resistors to be inputted by the user.
     Resistor *resistors = malloc(capacity * sizeof(Resistor));
-
-    printf("Input File Name:\t%s\n", input_file_name);
 
     // Concatenate the input filename with the name of the directory it is contained in.
     strcat(input_file_working_dir, input_file_name);
@@ -93,23 +91,11 @@ int main(int argc, char *argv[]){
         maximum_power = maximumPower(measurement);
         minimum_resistance = minimumResistance(measurement);
         maximum_resistance = maximumResistance(measurement);
-    
-        printf("Max Pow = %lf\n", maximum_power);
-        printf("Min Res = %lf\n", minimum_resistance);
-        printf("Max Res = %lf\n", maximum_resistance);
-
         minimum_resistance_meas = whichMinimumResistance(measurement, minimum_resistance); 
         maximum_resistance_meas = whichMaximumResistance(measurement, maximum_resistance);
         maximum_power_meas = whichMaximumPower(measurement, maximum_power);
-
-        printf("Minimum resistance measurement = %d\n", minimum_resistance_meas);
-        printf("Maximum resistance measurement = %d\n", maximum_resistance_meas);
-        printf("Maximum power measurement = %d\n", maximum_power_meas);
-
         percentDeviation(&resistors[count - 1], avgRes);    
         passOrFail(&resistors[count - 1]);
-        printf("Standard Deviation = %lf\n", resistors[count - 1].percent_deviation);
-        printf("Resistor status:%d\n", resistors[count - 1].status);
 
         printf("Add additional resistor? (Yes/No):\t");
         scanf("%s", choice);
@@ -125,8 +111,18 @@ int main(int argc, char *argv[]){
         else{
             additional_resistor = false;
         }
-
-        displayToFile(measurement, &resistors[count -1]);    
+        
+        printf("TOLERANCE ANALYSIS\n\n");
+        printf("Nominal Resistance:\t%.2lf\n", resistors[count-1].nominal_resistance);
+        printf("Measured Average:\t%.2lf\n", avgRes);
+        printf("Percent Deviation:\t%.2lf\n", resistors[count-1].deviation);
+        printf("Allowed Tolerance:\t%.2lf\n", resistors[count-1].tolerance);
+        if(resistors[count-1].status == 1){
+            printf("Result: PASS\n");
+        }
+        else{
+            printf("Result: FAIL\n");
+        }
 
     }
     
