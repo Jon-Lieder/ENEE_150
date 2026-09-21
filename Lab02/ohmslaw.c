@@ -12,19 +12,52 @@
 #include <stdio.h>
 
 
-
+/*
+ * calculateVoltage
+ *
+ * Calculates the voltage of a measurement in accordance to Ohm's Law ( V=IR )
+ *
+ * Parameters:
+ *      current - double value containing the current measurement in amperes
+ *      resistance - double value containing the resistance measurement in ohms
+ *
+ * Returns:
+ *      current * resistance (voltage)
+ */
 double calculateVoltage(double current, double resistance){
     return current * resistance;
 }
 
 
-
+/*
+ * calculateCurrent
+ *
+ * Calculates the current of a measurement in accordance to Ohm's Law ( V=IR )
+ *
+ * Parameters:
+ *      voltage - double value containing the voltage measurement in volts
+ *      resistance - double value containing the resistance measurement in ohms
+ *
+ * Returns:
+ *      voltage / resistance (current)
+ */
 double calculateCurrent(double voltage, double resistance){
     return voltage / resistance;
 }
 
 
-
+/*
+ * calculateResistance
+ *
+ * Calculates the resistance of a measurement in accordance to Ohm's Law ( V=IR )
+ *
+ * Parameters:
+ *      voltage - double value containing the voltage measurement in volts
+ *      current - double value containing the current measurement in amperes
+ *
+ * Returns:
+ *      voltage / current (resistance)
+ */
 double calculateResistance(double voltage, double current){
     return voltage / current;
 }
@@ -32,40 +65,41 @@ double calculateResistance(double voltage, double current){
 
 
 int main(){
-    char expression;
+    int expression;
     double voltage;
     double current;
     double resistance;
     
-    printf("pick\n");
-    scanf("%c", &expression);
+    printf("OHM'S LAW CALCULATOR\n\n1. Calculate Voltage\n2. Calculate Current\n3. Calculate Resistance\n\n");
+    printf("Enter Selection: ");
+    scanf("%d", &expression);
 
     switch (expression){
-        case 'v':
-            printf("current\n");
+        case 1:
+            printf("Enter current in amperes: ");
             scanf("%lf", &current);
-            printf("resistance\n");
+            printf("Enter resistance in ohms: ");
             scanf("%lf", &resistance);
             voltage = calculateVoltage(current, resistance);
-            printf("%.2f\n", voltage);
+            printf("Voltage = %.2f V\n", voltage);
             break;
 
-        case 'c':
-            printf("voltage\n");                                                           
+        case 2:
+            printf("Enter voltage in volts: ");                                                           
             scanf("%lf", &voltage);                                                  
-            printf("resistance\n");                                                           
+            printf("Enter resistance in ohms: ");                                                           
             scanf("%lf", &resistance);                                               
             current = calculateCurrent(voltage, resistance);                    
-            printf("%.2f\n", current);                                                           
+            printf("Current = %.2f A\n", current);                                                           
             break; 
 
-        case 'r':
-            printf("voltage\n");
+        case 3:
+            printf("Enter voltage in volts: ");
             scanf("%lf", &voltage);
-            printf("current\n");
+            printf("Enter current in amperes: ");
             scanf("%lf", &current);
             resistance = calculateResistance(voltage, current);
-            printf("%.2f\n", resistance);
+            printf("Resistance = %.2f ohms\n", resistance);
             break;
     }
         

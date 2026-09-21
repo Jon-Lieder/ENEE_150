@@ -6,7 +6,7 @@ LDLIBS = -lm
 TARGET = bin/circuitTestAnalyzer.exe                    # Target Name
 
 SRCS = $(wildcard src/*.c)                              # Compile all .c files
-#OBJS = $(patsubst src/%.c, build/%.o, $(SRCS))                     # Generate .o output files
+OBJS = $(patsubst src/%.c, obj/%.o, $(SRCS))                     # Generate .o output files
 #DEPS = $(OBJ:.o=.d)                                     # Find all local custom header files
 
 # --- TARGET RULES ---
@@ -14,11 +14,11 @@ SRCS = $(wildcard src/*.c)                              # Compile all .c files
 all: $(TARGET)
 
 # Rule to link object files into the final executable
-$(TARGET): $(SRCS) | bin
-	$(CC) $(CFLAGS) $(SRCS) -o $(TARGET) $(LDLIBS)
+$(TARGET): $(OBJS) | bin
+	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET) $(LDLIBS)
 
-#build/%.o: src/%.c | build
-#	$(CC) $(CFLAGS) -c $< -o $@
+obj/%.o: src/%.c | obj
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Target to clean up generated files and start fresh
 clean: 

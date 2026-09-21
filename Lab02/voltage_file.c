@@ -5,13 +5,27 @@
  * Date:            September 4, 2026
  *
  * Description:
- *
+ * This program reads voltage values from "voltage.txt". With these values, the minimum and
+ * maximum voltages are obtained by comparing each of the values and the average voltage is 
+ * calculated. The results are then output on the command line in a formatted display.
  */
 
 
 #include <stdio.h>
 
-int voltageRead(FILE *file_ptr){
+/*
+ * voltageRead
+ *
+ * Reads each voltage value from a file and locates the minimum and maximum data point. Calculates 
+ * the average with a running sum to be divided by the amount of data points that were recorded. 
+ *
+ * Parameters:
+ *      *file_ptr - a pointer to the inputted file
+ *
+ * Returns:
+ *      Nothing
+ */
+void voltageRead(FILE *file_ptr){
     int i = 0;
     int count = 0;
     float voltages[8];
@@ -37,7 +51,7 @@ int voltageRead(FILE *file_ptr){
     average_voltage = voltages_sum / count;
 
     printf("VOLTAGE DATA SUMMARY\n\n");
-    printf("Number of measurements:\t8\n");
+    printf("Number of measurements:\t%d\n", count);
     printf("Average Voltage:\t%.2f V\n", average_voltage);
     printf("Minimum Voltage:\t%.2f V\n", minimum_voltage);
     printf("Maximum_Voltage:\t%.2f V\n", maximum_voltage);
@@ -46,7 +60,9 @@ int voltageRead(FILE *file_ptr){
 
 int main(int argc, char *argv[]){
     FILE *file_ptr;
-    
+  
+    // OPTIONAL TO GET USED TO THIS TOPIC:
+    // adds a file flag for command line arguments to override the default file   
     if ((argv[0] == "-f" || argv[0] == "--file") && argc == 2){
         file_ptr = fopen(argv[1], "r"); 
     }
@@ -56,15 +72,10 @@ int main(int argc, char *argv[]){
     
     voltageRead(file_ptr);
 
-
-
-
-    
     if (file_ptr == NULL){
         printf("File could not be opened correctly");
         return 1;
     }
-
 
     fclose(file_ptr);
 

@@ -12,6 +12,18 @@
  * ------------------------------
  */
 
+
+/*
+ * averageResistance
+ *
+ * Calculates the average resistance for a resistor across 3 different measurements.
+ *
+ * Parameters:
+ *      measurement[] - an array of the Measurement struct containing all three measurements
+ *
+ * Returns:
+ *      average_resistance
+ */
 double averageResistance(Measurement measurement[]){
     double average_resistance = 0;
     
@@ -27,7 +39,18 @@ double averageResistance(Measurement measurement[]){
 }
 
 
-
+/*
+ * calculateResistance
+ *
+ * Calculates the resistance of a measurement for the current resistor.
+ *
+ * Parameters:
+ *      voltage - double value containing the voltage of a measurement in volts
+ *      current - double value containing the current of a measurement in amperes
+ *
+ * Returns:
+ *      voltage / current (resistance) 
+ */
 double calculateResistance(double voltage, double current){ 
     bool input_stream = true;
     
@@ -49,11 +72,21 @@ double calculateResistance(double voltage, double current){
         }
     }
     
-    return voltage / current;
+    return voltage / current; // resistance formula from ohm's law
 }
 
 
-
+/*
+ * maximumResistance
+ *
+ * Determines the maximum resistance within the 3 measurements
+ *
+ * Parameters:
+ *      measurement[] - an array of the Measurement struct containing all 3 measurements
+ *
+ * Returns:
+ *      maximum_resistance
+ */
 double maximumResistance(Measurement measurement[]){
     double maximum_resistance = 0;
     
@@ -67,7 +100,17 @@ double maximumResistance(Measurement measurement[]){
 }
 
 
-
+/*
+ * minimumResistance
+ *
+ * Determines the minimum resistance within the 3 measurements
+ *
+ * Parameters:
+ *      measurement[] - an array of the Measurement struct containing all 3 measurements
+ *
+ * Returns:
+ *      minimum_resistance
+ */
 double minimumResistance(Measurement measurement[]){
     double minimum_resistance = measurement[0].resistance;
 
@@ -87,21 +130,34 @@ double minimumResistance(Measurement measurement[]){
  */
 
 
-// WASTE OF TIME
 /*
-double averagePower(double *voltages, double *currents){
-    double averagePower = 0;
-
-    for (int i = 0; i < NUMBER_OF_TRIALS; i++ ){
-        averagePower += voltages[i] * ( currents[i] * NUMBER_OF_TRIALS ); 
-    }
-
-    return averagePower;
+ * calculatePower
+ *
+ * calculates the power of a given measurement for the current resistor.
+ *
+ * Parameters:
+ *      voltage - double value containing the voltage reading of a measurement in volts
+ *      current - double value containing the current reading of a measurement in amperes
+ *
+ * Returns:
+ *      voltage * current (power)
+ */
+double calculatePower(double voltage, double current){ 
+    return voltage * current; // Power formula ( P = IV )
 }
-*/
 
-double calculatePower(double voltage, double current){ return voltage * current; }
 
+/*
+ * maximumPower
+ *
+ * Determines the maximum power that occurred within the three measurements for the current resistor.
+ *
+ * Parameters:
+ *      measurement[] - an array of the Measurement struct containing all 3 measurements.
+ *
+ * Returns:
+ *      maximum_power
+ */
 double maximumPower(Measurement measurement[]){
     double maximum_power = 0;
 
@@ -121,6 +177,22 @@ double maximumPower(Measurement measurement[]){
  * ------------------------------
  */
 
+
+/*
+ * percentDeviation
+ *
+ * Calculates the percent deviation of each measurement for the current resistor/ 
+ *
+ * Parameters:
+ *      *resistor - a pointer to an instance of the resistor struct 
+ *      average_resistance - double value containing the average resistance for the current resistor
+ *                           across all 3 measurements.
+ *
+ * Returns:
+ *      Nothing
+ */
 void percentDeviation(Resistor *resistor, double average_resistance){
-    resistor->percent_deviation = (average_resistance - resistor->nominal_resistance) / resistor->nominal_resistance * 100 ;
+    // Formula for percent deviation
+    resistor->percent_deviation = (average_resistance - resistor->nominal_resistance) 
+                                    / resistor->nominal_resistance * 100 ;
 }

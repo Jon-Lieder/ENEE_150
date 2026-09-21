@@ -4,7 +4,17 @@
 #include "constants.h" 
 
 
-
+/*
+ * obtainVoltage
+ *
+ * Prompts user to enter the voltage from a measurement.
+ *
+ * Paramters:
+ *      *measurement - A pointer to the instance of a Measurement struct
+ *
+ * Returns:
+ *      Nothing
+ */
 void obtainVoltage(Measurement *measurement){
     bool input_stream = true;
     
@@ -23,6 +33,16 @@ void obtainVoltage(Measurement *measurement){
 }
 
 
+/* obtainCurrent
+ *
+ * Prompts user to enter the current frmo a measurement.
+ *
+ * Parameters:
+ *      *measurement - A pointer to the instance of a Measurement struct
+ *
+ * Returns:
+ *      Nothing
+ */
 void obtainCurrent(Measurement *measurement){
     bool input_stream = true;
 
@@ -43,6 +63,18 @@ void obtainCurrent(Measurement *measurement){
 }   
 
 
+/*
+ * whichMaximumResistance
+ *
+ * Locates which measurement the maximum resistance value occurred.
+ *
+ * Parameters:
+ *      measurement[] - an array of the Measurement struct containing all 3 measurements
+ *      maximum_restistance - double value of the largest calculated resistance within the measurements.
+ *
+ * Returns:
+ *      The measurement number where the maximum resistance occurred.
+ */
 int whichMaximumResistance(Measurement measurement[], double maximum_resistance){
     int i = 0; // declaring iterator outside of loop for return
 
@@ -54,7 +86,18 @@ int whichMaximumResistance(Measurement measurement[], double maximum_resistance)
 }
 
 
-
+/*
+ * whichMinimumResistance
+ *
+ * Locates which measurement the minimum resistance value occurred.
+ *
+ * Parameters:
+ *      measurement[] - an array of the Measurement struct containing all 3 measurements
+ *      minimum_resistance - double value of the smallest calculated resistance within the measurements.
+ *
+ * Returns:
+ *      The measurement number where the minimum resistance occurred.
+ */
 int whichMinimumResistance(Measurement measurement[], double minimum_resistance){
     int i = 0; // declaring iterator outside of loop for return
 
@@ -66,7 +109,15 @@ int whichMinimumResistance(Measurement measurement[], double minimum_resistance)
 }
 
 
-
+/*
+ * whichMaximumPower
+ *
+ * Locates which measurement the maximum power value occurred.
+ *
+ * Parameters:
+ *      measurement[] - an array of the Measurement struct containing all 3 measurements.
+ *      maximum_power - double value of the largest calculated power within the measurements.
+ */
 int whichMaximumPower(Measurement measurement[], double maximum_power){
     int i = 0; // declaring iterator outside of loop for return
 

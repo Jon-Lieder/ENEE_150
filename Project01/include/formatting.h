@@ -1,6 +1,8 @@
 #ifndef FORMATTING_H
 #define FORMATTING_H
 
-//void displayToFile(Measurement measurement[]);
+#include "measurement.h"
+
+void displayToFile(Measurement measurement[], Resistor *resistor);
 
 #endif
