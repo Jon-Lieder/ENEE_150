@@ -3,6 +3,6 @@
 
 #include "config.h"
 
-double cramerSolver(double ab, double a);
+double cramerSolver(double ab[ROWS][AUG_COLS], double solutions[ROWS], double dets[AUG_COLS], FILE *file);
 
 #endif

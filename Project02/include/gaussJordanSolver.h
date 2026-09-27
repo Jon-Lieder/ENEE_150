@@ -3,6 +3,6 @@
 
 #include "config.h"
 
-void gaussJordanSolver(double ab[ROWS][AUG_COLS]);
+void gaussJordanSolver(double ab[ROWS][AUG_COLS], FILE *file);
 
 #endif

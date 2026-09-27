@@ -96,31 +96,222 @@ int clearInput(void);
 
 int main(void)
 {
-    int numPtr, denPtr;
+    int choice;
+    int status;
+    int extra;
+    int validInput;
 
-    getInput(&numPtr, &denPtr);
+    /* First fraction: n1/d1 */
+    int n1;
+    int d1;
 
-    switch(choice){
-        case 1:
-            add();
-        case 2:
-            subtract();
-        case 3:
-            multiply();
-        case 4:
-            return 1;
+    /* Second fraction: n2/d2 */
+    int n2;
+    int d2;
 
-    }
-    /*
-     * TODO:
-     * Calculate the result numerator for n1/d1 * n2/d2
-     * and store it through n3Ptr.
-     */
+    /* Result fraction: n3/d3 */
+    int n3;
+    int d3;
+
 
     /*
-     * TODO:
-     * Calculate the result denominator and store it through d3Ptr.
+     * Repeat until the user selects option 4.
+     *
+     * Notice that no break or continue statements are needed.
+     * The loop condition controls when the program ends.
      */
+    do
+    {
+        printf("\n");
+        printf("Fraction Calculator\n");
+        printf("-------------------\n");
+        printf("1. Add\n");
+        printf("2. Subtract\n");
+        printf("3. Multiply\n");
+        printf("4. Exit\n");
+        printf("Enter choice: ");
+
+
+        /**********************************************************
+         * READ THE MENU OPTION
+         *
+         * scanf() returns the number of variables that it
+         * successfully fills.
+         *
+         * We are trying to read ONE integer.
+         *
+         * Therefore:
+         *
+         *      status == 1   successful integer input
+         *      status != 1   invalid input
+         **********************************************************/
+
+        status = scanf("%d", &choice);
+
+
+        /*
+         * Remove anything else remaining on the input line.
+         *
+         * clearInput() returns 1 if unexpected non-whitespace
+         * characters were found.
+         *
+         * Therefore:
+         *
+         *      2
+         *
+         * is valid, while:
+         *
+         *      2abc
+         *
+         * is invalid.
+         */
+        extra = clearInput();
+
+
+        /*
+         * If the menu input is invalid, set choice to 0.
+         *
+         * This keeps the loop running but prevents any fraction
+         * calculations from being performed.
+         */
+        if (status != 1 || extra)
+        {
+            printf("Invalid option. Please enter 1, 2, 3, or 4.\n");
+
+            choice = 0;
+        }
+
+
+        /*
+         * Option 4 ends the program through the loop condition.
+         */
+        else if (choice == 4)
+        {
+            printf("Goodbye.\n");
+        }
+
+
+        /*
+         * Reject integers outside the valid menu range.
+         */
+        else if (choice < 1 || choice > 4)
+        {
+            printf("Invalid option. Please enter 1, 2, 3, or 4.\n");
+        }
+
+
+        /*
+         * If we reach this point, choice must be 1, 2, or 3.
+         */
+        else
+        {
+            /******************************************************
+             * READ FIRST FRACTION
+             ******************************************************/
+
+            printf("Enter first fraction (N/D): ");
+
+            /*
+             * n1 and d1 are ordinary int variables in main().
+             *
+             * getfraction() must CHANGE them, so their addresses
+             * are passed:
+             *
+             *      &n1
+             *      &d1
+             *
+             * getfraction() returns:
+             *
+             *      1 for valid input
+             *      0 for invalid input
+             */
+            validInput = getInput(&n1, &d1);
+
+
+            /******************************************************
+             * READ SECOND FRACTION
+             *
+             * Only ask for the second fraction if the first
+             * fraction was valid.
+             ******************************************************/
+
+            if (validInput)
+            {
+                printf("Enter second fraction (N/D): ");
+
+                validInput = getInput(&n2, &d2);
+            }
+
+
+            /******************************************************
+             * PERFORM THE CALCULATION
+             *
+             * Only continue if BOTH fractions were valid.
+             ******************************************************/
+
+            if (validInput)
+            {
+                if (choice == 1)
+                {
+                    /*
+                     * n1, d1, n2, and d2 are input values.
+                     *
+                     * n3 and d3 are output variables.
+                     *
+                     * The addresses of n3 and d3 are passed so
+                     * add() can store TWO results.
+                     */
+                    add(n1, d1,
+                        n2, d2,
+                        &n3, &d3);
+                }
+
+                else if (choice == 2)
+                {
+                    subtract(n1, d1,
+                             n2, d2,
+                             &n3, &d3);
+                }
+
+                else
+                {
+                    multiply(n1, d1,
+                             n2, d2,
+                             &n3, &d3);
+                }
+
+
+                /**************************************************
+                 * REDUCE THE RESULT
+                 **************************************************/
+
+                /*
+                 * reduce() must change both n3 and d3.
+                 *
+                 * Therefore, their addresses are passed.
+                 */
+                reduce(&n3, &d3);
+
+
+                /**************************************************
+                 * DISPLAY THE RESULT
+                 **************************************************/
+
+                printf("Result: ");
+
+                /*
+                 * display() only needs to READ n3 and d3.
+                 *
+                 * Therefore, ordinary values are passed.
+                 */
+                display(n3, d3);
+            }
+        }
+
+    } while (choice != 4);
+
+
+    return 0;
 }
 
 
@@ -423,7 +614,7 @@ void add(int n1, int d1,
      // TODO!!
     *n3Ptr = n1 * d2 + n2 * d1;
     *d3Ptr = d1 * d2;
-
+}
 
 /**************************************************************
  * subtract

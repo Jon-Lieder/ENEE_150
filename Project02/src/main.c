@@ -4,6 +4,7 @@
 #include <unistd.h>
 
 #include "matrixInput.h"
+#include "matrixOutput.h"
 #include "matrixMath.h"
 #include "cramerSolver.h"
 #include "gaussianSolver.h"
@@ -27,7 +28,8 @@ int main(int argc, char *argv[]){
     double az[ROWS][COLS];
     double ab[ROWS][AUG_COLS];
     double b[ROWS];
-    double x[ROWS];
+    double solutions[ROWS];
+    double dets[AUG_COLS];
 
     double det_a;
     double det_ax;
@@ -60,18 +62,22 @@ int main(int argc, char *argv[]){
     }
 
     printf("Main line 44: Files read and opened succesfully.\n");
+   
+
+    //header(output_ptr); 
+    inputMatrix(input_ptr, ab, a, b, output_ptr);
+//    buildAx(input_ptr, a, b, ax, output_ptr);
+//    buildAy(input_ptr, a, b, ay, output_ptr);
+//    buildAz(input_ptr, a, b, az, output_ptr);
+    cramerSolver(ab, solutions, dets, output_ptr);
+//    det_a = determinant(a);
+//    det_ax = determinant(ax);
+//    det_ay = determinant(ay);
+//    det_az = determinant(az); 
+//    x1 = cramerSolver(det_ax, det_a, output_ptr);
+//    x2 = cramerSolver(det_ay, det_a, output_ptr);
+//    x3 = cramerSolver(det_az, det_a, output_ptr);
     
-    inputMatrix(input_ptr, ab, a, b);
-    buildAx(input_ptr, a, b, ax);
-    buildAy(input_ptr, a, b, ay);
-    buildAz(input_ptr, a, b, az);
-    det_a = determinant(a);
-    det_ax = determinant(ax);
-    det_ay = determinant(ay);
-    det_az = determinant(az); 
-    x1 = cramerSolver(det_ax, det_a);
-    x2 = cramerSolver(det_ay, det_a);
-    x3 = cramerSolver(det_az, det_a);
-    gaussianSolver(ab);
-    gaussJordanSolver(ab);
+    gaussianSolver(ab, output_ptr);
+    gaussJordanSolver(ab, output_ptr);
 }

@@ -3,7 +3,7 @@
 
 #include "config.h"
 
-void inputMatrix(FILE *file, double ab[ROWS][AUG_COLS], double a[ROWS][COLS], double b[ROWS]);
+void inputMatrix(FILE *file, double ab[ROWS][AUG_COLS], double a[ROWS][COLS], double b[ROWS], FILE *output_file);
 
 void buildAx(FILE *file, double a[ROWS][COLS], double b[ROWS], double ax[ROWS][COLS]);
 

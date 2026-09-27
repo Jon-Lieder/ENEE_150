@@ -3,6 +3,6 @@
 
 #include "config.h"
 
-void gaussianSolver(double ab[ROWS][AUG_COLS]);
+void gaussianSolver(double ab[ROWS][AUG_COLS], FILE *file);
 
 #endif
