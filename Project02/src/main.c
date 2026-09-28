@@ -41,7 +41,7 @@ int main(int argc, char *argv[]){
     double dets[AUG_COLS];
 
     if (argc != 3){ 
-        printf("Incorrect useage. \nmatrixSovler.exe matrixData.txt results.txt\n");
+        printf("Incorrect useage. \nmatrixSovler.exe system.txt results.txt\n");
         return 1;
     }   
 

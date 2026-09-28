@@ -1,6 +1,8 @@
 /*
- * fraction.c
- * ENEE 150 - Fraction Calculations Project
+ * Name:            Jon Lieder
+ * Course:          ENEE 150
+ * Project:         Lab 04
+ * Assignment:      Fraction Calculations Project
  *
  * PURPOSE
  * -------
