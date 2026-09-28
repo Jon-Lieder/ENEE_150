@@ -3,6 +3,8 @@
 
 #include "config.h"
 
-double determinant(double a[ROWS][COLS]);
+double determinant3(double a[ROWS-1][COLS-1]);
+
+double determinant4(double matrix[ROWS][COLS]);
 
 #endif

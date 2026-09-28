@@ -35,11 +35,10 @@ void gaussianSolver(double ab[ROWS][AUG_COLS], FILE *file){
             }
         }
     }
-    
-    gauss_soln[3] = ab_G_temp[3][4] / ab_G_temp[3][3];
-    gauss_soln[2] = (ab_G_temp[2][4] - ab_G_temp[2][3]*gauss_soln[3]) / ab_G_temp[2][2];
-    gauss_soln[1] = (ab_G_temp[1][4] - ab_G_temp[1][3]*gauss_soln[3] - ab_G_temp[1][2]*gauss_soln[2]) / ab_G_temp[1][1];
-    gauss_soln[0] = (ab_G_temp[0][4] - ab_G_temp[0][3]*gauss_soln[3] - ab_G_temp[0][2]*gauss_soln[2] - ab_G_temp[0][1]*gauss_soln[1]) / ab_G_temp[0][0];
+
+    gauss_soln[2] = ab_G_temp[2][3] / ab_G_temp[2][2];
+    gauss_soln[1] = (ab_G_temp[1][3] - ab_G_temp[1][2]*gauss_soln[2]) / ab_G_temp[1][1];
+    gauss_soln[0] = (ab_G_temp[0][3] - ab_G_temp[0][2]*gauss_soln[2] - ab_G_temp[0][1]*gauss_soln[1]) / ab_G_temp[0][0];
 
     gaussianOutput(ab_G_temp, gauss_soln, file);
 }   

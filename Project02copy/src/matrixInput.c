@@ -21,7 +21,7 @@
  * Returns:
  *      Nothing
  */
-void inputMatrix(FILE *file, double ab[ROWS][AUG_COLS], double a[ROWS][COLS], double b[ROWS]){
+void inputMatrix(FILE *file, double ab[ROWS][AUG_COLS], double a[ROWS][COLS], double b[ROWS], FILE *output_file){
     for(int i = 0; i < ROWS; i++){
         for(int j = 0; j < AUG_COLS; j++){
             fscanf(file, "%lf", &ab[i][j]);

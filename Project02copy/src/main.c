@@ -61,8 +61,7 @@ int main(int argc, char *argv[]){
         return 1;
     }
 
-    inputMatrix(input_ptr, ab, a, b);
-    inputDisplay(output_ptr, ab);
+    inputMatrix(input_ptr, ab, a, b, output_ptr);
     cramerSolver(ab, solutions, dets, output_ptr);
     gaussianSolver(ab, output_ptr);
     gaussJordanSolver(ab, output_ptr);
