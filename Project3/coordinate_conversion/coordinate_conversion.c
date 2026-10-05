@@ -58,7 +58,6 @@ int main(void){
                     printf("Invalid Data!\n");
                     clearInput();
                     continue;
-                    //break;
                 }
                 else{
                     rectToPolar(x, y, &r, &theta);
