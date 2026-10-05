@@ -1,0 +1,12 @@
+Test 1: Rectangular (2.000, 2.000) -> Polar (2.828, 45.000)
+Test 2: Rectangular (0.000, 2.500) -> Polar (2.500, 90.000)
+Test 3: Rectangular (0.000, -3.200) -> Polar (3.200, -90.000)
+Test 4: Rectangular (0.000, 0.000) -> Polar (0.000, 0.000)
+Test 5: Rectangular (-2.500, 3.100) -> Polar (3.982, 128.884)
+Test 6: Rectangular (2.500, -3.100) -> Polar (3.982, -51.116)
+Test 7: Rectangular (-4.000, 0.000) -> Polar (4.000, 180.000)
+Test 8: Polar (2.500 , 30.000) -> Rectangular (2.165, 1.250)
+Test 9: Polar (4.000 , 90.000) -> Rectangular (0.000, 4.000)
+Test 10: Polar (2.700 , 125.000) -> Rectangular (-1.549, 2.212)
+Test 11: Polar (3.000 , -135.000) -> Rectangular (-2.121, -2.121)
+Test 12: Polar (-2.000 , 45.000) -> INVALID. Radius value was negative.
