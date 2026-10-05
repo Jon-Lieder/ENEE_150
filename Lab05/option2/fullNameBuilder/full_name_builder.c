@@ -32,7 +32,9 @@ void displayName(const char *first_name, const char *last_name, const char *full
  *      Nothing
  */
 void getName(char *first_name, char *last_name){
+    printf("Enter your first name:\t");
     scanf("%s", first_name);
+    printf("Enter your last name:\t");
     scanf("%s", last_name);
 }
 
@@ -79,7 +81,7 @@ void fullNameBuilder(const char *first_name,
 void displayName(const char *first_name,
                  const char *last_name,
                  const char *full_name){
-    printf("%s + %s -> %s\n", first_name, last_name, full_name);
+    printf("\n%s + %s -> %s\n", first_name, last_name, full_name);
 }
 
 
