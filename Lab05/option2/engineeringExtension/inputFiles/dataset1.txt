@@ -1,2 +1,15 @@
-Equipment: TEKTRONIX24756 
-Sampling Rate: 44000
+Manufacturer: RIGOL Technologies
+Model: DS1054Z
+Waveform Data,Channel: 1
+Time Scale: 0.000500 s/div
+Voltage Scale: 1.000000 V/div
+Second,Volt
+-0.002000,0.040000
+-0.001500,0.120000
+-0.001000,1.240000
+-0.000500,2.850000
+ 0.000000,5.000000
+ 0.000500,2.810000
+ 0.001000,1.200000
+ 0.001500,0.110000
+ 0.002000,0.030000

@@ -1,0 +1,33 @@
+__________________________________________
+
+inputFiles/dataset1.txt
+__________________________________________
+
+Manufacturer: RIGOL Technologies
+Model: DS1054Z
+Channel: 1
+Voltage Scale: 1.000000 V/div
+Time Scale: 0.000500 s/div
+
+__________________________________________
+
+inputFiles/dataset2.txt
+__________________________________________
+
+Manufacturer: RIGOL Technologies
+Model: DS1054Z
+Channel: 1
+Voltage Scale: 0.200000 V/div
+Time Scale: 0.000005 s/div
+
+__________________________________________
+
+inputFiles/dataset3.txt
+__________________________________________
+
+Manufacturer: RIGOL Technologies
+Model: DS1054Z
+Channel: 1
+Voltage Scale: 10.000000 V/div
+Time Scale: 0.005000 s/div
+
