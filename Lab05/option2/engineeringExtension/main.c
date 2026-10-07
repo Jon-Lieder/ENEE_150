@@ -16,8 +16,8 @@
 #define MAX_CHAR 50
 #define ELEMENTS 2
 
-int getInputFile(const char *input_file_name, FILE *input);
-void getEquipmentName(FILE *input, const char *name_to_match, char *summary);
+int getInputFile(const char *input_file_name, FILE **input);
+void getEquipmentName(FILE *input, const char *name_to_match, char *line, char *summary);
 //void fullNameBuilder(const char *first_name, const char *last_name, char *full_name);
 //void displayName(const char *first_name, const char *last_name, const char *full_name);
 
@@ -34,10 +34,10 @@ void getEquipmentName(FILE *input, const char *name_to_match, char *summary);
  *      None
  */
 
-int getInputFile(const char *input_file_name, FILE *input){
-    input = fopen(input_file_name, "r");
+int getInputFile(const char *input_file_name, FILE **input){
+    *input = fopen(input_file_name, "r");
 
-    if (input == NULL){
+    if (*input == NULL){
         return 1;
     }
     return 0;
@@ -57,11 +57,27 @@ int getInputFile(const char *input_file_name, FILE *input){
  *      Nothing
  */
 
-void getEquipmentName(FILE *input, const char *name_to_match, char *summary){
-    //char test[256];
+void getEquipmentName(FILE *input, const char *name_to_match, char *line, char *summary){
+    int length;
     printf("Here\n");
-    fscanf(input, "%s", summary);
-    printf("%s\n", *summary);
+    fscanf(input, "%s", line);
+    printf("No, Here\n");
+    char *start = strstr(line, name_to_match);
+    //printf("%s\n", summary);
+    printf("HERE");    
+    start += strlen(name_to_match);
+    while (*start == ' '){
+        start++;
+    }
+
+    length = strcspn(start, " \n");
+    if (length >= MAX_CHAR){
+        length = MAX_CHAR - 1;
+    }
+    printf("Here\n");
+    strncpy(summary, start, length);
+    summary[length] = '\0';
+
 }
 
 
@@ -79,16 +95,16 @@ void getEquipmentName(FILE *input, const char *name_to_match, char *summary){
  *      Nothing
  */
 /*
-void fullNameBuilder(const char *first_name, 
-                     const char *last_name, 
+void fullNameBuilder(const char *summary, 
+                     const char *name_to_match, 
                      char *full_name){
 
                                         // Example:
     strcpy(full_name, first_name);       // "\0" -> "Jon\0"
     strcat(full_name, "_");             // "Jon\0" -> "Jon \0"
     strcat(full_name, last_name);       // "Jon \0" -> "Jon LIeder\0"
-}*/
-
+}
+*/
 
 /*
  * displayName
@@ -115,12 +131,12 @@ void displayName(const char *first_name,
 int main(int argc, char *argv[]){
     FILE *input;
     char equipment_name[MAX_CHAR], channel_number[MAX_CHAR], 
-         date[MAX_CHAR], sample_rate[MAX_CHAR], summary[ELEMENTS * MAX_CHAR];
-    char names_to_match[ELEMENTS][MAX_CHAR] = {"Equipment", "Sampling"};
+         date[MAX_CHAR], sample_rate[MAX_CHAR], summary[ELEMENTS * MAX_CHAR], line[ELEMENTS * MAX_CHAR];
+    char names_to_match[ELEMENTS][MAX_CHAR] = {"Equipment:", "Sampling Rate:"};
     int file_success;        
 
     for (int i = 0 ; i < argc ; i++){
-        file_success = getInputFile(argv[i+1], input);
+        file_success = getInputFile(argv[i+1], &input);
 
         if (file_success == 1 && i+1 == argc){
             printf("End of input files reached. Terminating program.\n");
@@ -132,7 +148,7 @@ int main(int argc, char *argv[]){
         }
         
         for (int j = 0 ; j < ELEMENTS ; j++){
-            getEquipmentName(input, names_to_match[j], summary);
+            getEquipmentName(input, names_to_match[j], line, summary);
             printf("%s\n", names_to_match[j]);
         }
         //fclose(input);
