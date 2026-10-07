@@ -1,4 +1,4 @@
-/*  
+/*  i
  *  NAME:           Jon Lieder
  *  COURSE:         ENEE 150
  *  PROJECT:        Lab 5
@@ -11,13 +11,14 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define MAX_CHAR 50
 #define ELEMENTS 2
 
-int getInputFile(const char *input_file_name, FILE **input);
-void getEquipmentName(FILE *input, const char *name_to_match, char *line, char *summary);
+int getFiles(const char *input_file_name, FILE **input, int argc, int current_file);
+int getKeyword(FILE *input, const char *name_to_match, char *line, char *summary);
 //void fullNameBuilder(const char *first_name, const char *last_name, char *full_name);
 //void displayName(const char *first_name, const char *last_name, const char *full_name);
 
@@ -34,18 +35,31 @@ void getEquipmentName(FILE *input, const char *name_to_match, char *line, char *
  *      None
  */
 
-int getInputFile(const char *input_file_name, FILE **input){
+int getFiles(const char *input_file_name, FILE **input, int argc, int current_file){
     *input = fopen(input_file_name, "r");
 
-    if (*input == NULL){
-        return 1;
+    if (*input == NULL && current_file + 1 == argc){
+        printf("All files opened successfully.\n");
     }
+    else if(*input == NULL){
+        printf("Failed to open %s. Terminating program.\n", input_file_name);
+        exit(1);
+    }
+    
     return 0;
 }
 
+void openOutputFile(const char *output_file_name, FILE **output){
+    *output = fopen(output_file_name, "w");
+    
+    if (*output == NULL){
+        printf("Failed to open %s to write. Terminating program\n", output_file_name);
+        exit(1);
+    }
+}
 
 /*
- * getName
+ * getKeyword
  *
  * Obtains the first name and the last name into two separate arrays.
  *
@@ -57,27 +71,40 @@ int getInputFile(const char *input_file_name, FILE **input){
  *      Nothing
  */
 
-void getEquipmentName(FILE *input, const char *name_to_match, char *line, char *summary){
+int getKeyword(FILE *input, const char *name_to_match, char *line, char *summary){
     int length;
-    printf("Here\n");
-    fscanf(input, "%s", line);
-    printf("No, Here\n");
-    char *start = strstr(line, name_to_match);
-    //printf("%s\n", summary);
-    printf("HERE");    
-    start += strlen(name_to_match);
-    while (*start == ' '){
-        start++;
+
+    rewind(input);
+
+    while(fgets(line, MAX_CHAR, input) != NULL){
+
+        char *start = strstr(line, name_to_match);
+        
+        if (start == NULL){
+            continue;
+        }
+
+        start += strlen(name_to_match);
+
+        while (*start == ' ' || *start == ':'){
+            start++;
+        }
+
+        length = strcspn(start, " \n");
+
+        if (length >= MAX_CHAR){
+            length = MAX_CHAR - 1;
+        }
+
+        strncpy(summary, start, length);
+        summary[length] = '\0';
+        printf("Start:\t\t%s", start);
+        printf("Length:\t\t%d\n", length);
+        printf("Summary:\t%s\n", summary);
+        return 1; // Found keyword
     }
 
-    length = strcspn(start, " \n");
-    if (length >= MAX_CHAR){
-        length = MAX_CHAR - 1;
-    }
-    printf("Here\n");
-    strncpy(summary, start, length);
-    summary[length] = '\0';
-
+    return 0; // Keyword not found in file
 }
 
 
@@ -94,17 +121,17 @@ void getEquipmentName(FILE *input, const char *name_to_match, char *line, char *
  * Returns:
  *      Nothing
  */
-/*
-void fullNameBuilder(const char *summary, 
+
+void mergeStrings(const char *summary, 
                      const char *name_to_match, 
-                     char *full_name){
+                     char *full_list){
 
                                         // Example:
-    strcpy(full_name, first_name);       // "\0" -> "Jon\0"
-    strcat(full_name, "_");             // "Jon\0" -> "Jon \0"
-    strcat(full_name, last_name);       // "Jon \0" -> "Jon LIeder\0"
+    strcpy(full_list, name_to_match);       // "\0" -> "Jon\0"
+    strcat(full_list, ": ");             // "Jon\0" -> "Jon \0"
+    strcat(full_list, summary);       // "Jon \0" -> "Jon LIeder\0"
 }
-*/
+
 
 /*
  * displayName
@@ -121,38 +148,37 @@ void fullNameBuilder(const char *summary,
  * Returns:
  *      Nothing
  */
-void displayName(const char *first_name,
-                 const char *last_name,
-                 const char *full_name){
-    printf("\n%s + %s -> %s\n", first_name, last_name, full_name);
+void writeOutput(FILE **output,
+                 const char *full_list){
+//    printf("\n%s + %s -> %s\n", first_name, last_name, full_name);
+    fprintf(*output, "%s\n", full_list);
 }
 
 
 int main(int argc, char *argv[]){
-    FILE *input;
-    char equipment_name[MAX_CHAR], channel_number[MAX_CHAR], 
-         date[MAX_CHAR], sample_rate[MAX_CHAR], summary[ELEMENTS * MAX_CHAR], line[ELEMENTS * MAX_CHAR];
-    char names_to_match[ELEMENTS][MAX_CHAR] = {"Equipment:", "Sampling Rate:"};
-    int file_success;        
+    FILE *input, *output;
+    char summary[MAX_CHAR], line[MAX_CHAR], full_list[MAX_CHAR];
+    char names_to_match[ELEMENTS][MAX_CHAR] = {"Equipment", "Sampling Rate"};
+    int file_success, is_found;        
 
+    openOutputFile("results.txt", &output);
+ 
     for (int i = 0 ; i < argc ; i++){
-        file_success = getInputFile(argv[i+1], &input);
+        file_success = getFiles(argv[i+1], &input, argc, i);
 
-        if (file_success == 1 && i+1 == argc){
-            printf("End of input files reached. Terminating program.\n");
-            break;
-        }
-        else if (file_success == 1){
-            printf("File failed to open. Continuing on to next file.\n");
-            continue;
-        }
-        
         for (int j = 0 ; j < ELEMENTS ; j++){
-            getEquipmentName(input, names_to_match[j], line, summary);
-            printf("%s\n", names_to_match[j]);
+            is_found = getKeyword(input, names_to_match[j], line, summary);
+            if (is_found){
+                mergeStrings(summary, names_to_match[j], full_list);
+                writeOutput(&output, full_list);
+            }
+            //printf("%s\n", names_to_match[j]);
         }
-        //fclose(input);
+
+        fclose(input);
     }
+    
+    fclose(output);
     //getName(first_name, last_name);
     //fullNameBuilder(first_name, last_name, full_name);
     //displayName(first_name, last_name, full_name);
