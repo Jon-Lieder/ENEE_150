@@ -40,19 +40,21 @@ int getFiles(const char *input_file_name, FILE **input, int argc, int current_fi
 
     if (*input == NULL && current_file + 1 == argc){
         printf("All files opened successfully.\n");
+        return 1;
     }
     else if(*input == NULL){
         printf("Failed to open %s. Terminating program.\n", input_file_name);
-        exit(1);
+        //exit(1);
+        return 1;
     }
     
     return 0;
 }
 
-void openOutputFile(const char *output_file_name, FILE **output){
-    *output = fopen(output_file_name, "w");
+void openOutputFile(const char *output_file_name, FILE *output){
+    output = fopen(output_file_name, "w");
     
-    if (*output == NULL){
+    if (output == NULL){
         printf("Failed to open %s to write. Terminating program\n", output_file_name);
         exit(1);
     }
@@ -148,10 +150,10 @@ void mergeStrings(const char *summary,
  * Returns:
  *      Nothing
  */
-void writeOutput(FILE **output,
+void writeOutput(FILE *output,
                  const char *full_list){
 //    printf("\n%s + %s -> %s\n", first_name, last_name, full_name);
-    fprintf(*output, "%s\n", full_list);
+    fprintf(output, "%s\n", full_list);
 }
 
 
@@ -161,21 +163,22 @@ int main(int argc, char *argv[]){
     char names_to_match[ELEMENTS][MAX_CHAR] = {"Equipment", "Sampling Rate"};
     int file_success, is_found;        
 
-    openOutputFile("results.txt", &output);
+    openOutputFile("results.txt", output);
  
-    for (int i = 0 ; i < argc ; i++){
-        file_success = getFiles(argv[i+1], &input, argc, i);
+    for (int i = 1 ; i < argc ; i++){
+        if(getFiles(argv[i], &input, argc, i) == 1){
+            continue;
+        }
 
         for (int j = 0 ; j < ELEMENTS ; j++){
-            is_found = getKeyword(input, names_to_match[j], line, summary);
-            if (is_found){
-                mergeStrings(summary, names_to_match[j], full_list);
-                writeOutput(&output, full_list);
+            if (getKeyword(input, names_to_match[j], line, summary)){
+                //mergeStrings(summary, names_to_match[j], full_list);
+                //writeOutput(output, full_list);
             }
             //printf("%s\n", names_to_match[j]);
         }
 
-        fclose(input);
+        //fclose(input);
     }
     
     fclose(output);
