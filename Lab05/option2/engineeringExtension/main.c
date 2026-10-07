@@ -16,8 +16,8 @@
 #define MAX_CHAR 50
 #define ELEMENTS 2
 
-int getInputFile(const char *input_file_name, FILE *read_file);
-void getEquipmentName(FILE *input, const char *name_to_match);
+int getInputFile(const char *input_file_name, FILE *input);
+void getEquipmentName(FILE *input, const char *name_to_match, char *summary);
 //void fullNameBuilder(const char *first_name, const char *last_name, char *full_name);
 //void displayName(const char *first_name, const char *last_name, const char *full_name);
 
@@ -34,10 +34,10 @@ void getEquipmentName(FILE *input, const char *name_to_match);
  *      None
  */
 
-int getInputFile(const char *input_file_name, FILE *read_file){
-    read_file = fopen(input_file_name, "r");
+int getInputFile(const char *input_file_name, FILE *input){
+    input = fopen(input_file_name, "r");
 
-    if (read_file == NULL){
+    if (input == NULL){
         return 1;
     }
     return 0;
@@ -57,7 +57,11 @@ int getInputFile(const char *input_file_name, FILE *read_file){
  *      Nothing
  */
 
-void getEquipmentName(FILE *input, const char *name_to_match){
+void getEquipmentName(FILE *input, const char *name_to_match, char *summary){
+    //char test[256];
+    printf("Here\n");
+    fscanf(input, "%s", summary);
+    printf("%s\n", *summary);
 }
 
 
@@ -111,7 +115,7 @@ void displayName(const char *first_name,
 int main(int argc, char *argv[]){
     FILE *input;
     char equipment_name[MAX_CHAR], channel_number[MAX_CHAR], 
-         date[MAX_CHAR], sample_rate[MAX_CHAR], summary[MAX_CHAR];
+         date[MAX_CHAR], sample_rate[MAX_CHAR], summary[ELEMENTS * MAX_CHAR];
     char names_to_match[ELEMENTS][MAX_CHAR] = {"Equipment", "Sampling"};
     int file_success;        
 
@@ -126,12 +130,12 @@ int main(int argc, char *argv[]){
             printf("File failed to open. Continuing on to next file.\n");
             continue;
         }
-        printf("%s\n", argv[i+1]);
+        
         for (int j = 0 ; j < ELEMENTS ; j++){
-            getEquipmentName(input, names_to_match[j]);
+            getEquipmentName(input, names_to_match[j], summary);
             printf("%s\n", names_to_match[j]);
         }
-        fclose(input);
+        //fclose(input);
     }
     //getName(first_name, last_name);
     //fullNameBuilder(first_name, last_name, full_name);
