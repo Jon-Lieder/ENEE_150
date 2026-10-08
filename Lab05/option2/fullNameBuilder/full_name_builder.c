@@ -33,9 +33,12 @@ void displayName(const char *first_name, const char *last_name, const char *full
  */
 void getName(char *first_name, char *last_name){
     printf("Enter your first name:\t");
-    scanf("%s", first_name);
+    fgets(first_name, MAX_CHAR, stdin);
+    first_name[strcspn(first_name, "\n")] = '\0';
+
     printf("Enter your last name:\t");
-    scanf("%s", last_name);
+    fgets(last_name, MAX_CHAR, stdin);
+    last_name[strcspn(last_name, "\n")] = '\0';
 }
 
 
@@ -57,8 +60,8 @@ void fullNameBuilder(const char *first_name,
                      char *full_name){
 
                                         // Example:
-    strcpy(full_name, first_name);       // "\0" -> "Jon\0"
-    strcat(full_name, "_");             // "Jon\0" -> "Jon \0"
+    strcpy(full_name, first_name);      // "\0" -> "Jon\0"
+    strcat(full_name, " ");             // "Jon\0" -> "Jon \0"
     strcat(full_name, last_name);       // "Jon \0" -> "Jon LIeder\0"
 }
 

@@ -10,8 +10,11 @@
     - binary.c
     - voltage_file.c | voltage*.txt (tests)
 #### Lab02
+#### Lab03
+#### Lab04
+#### Lab05
 ### Projects
-#### Project01
+#### Project 1
     - bin
         - main.exe
     - build (temporary)
@@ -25,3 +28,5 @@
         - resistor.c
         - measurement.c
     - tests
+#### Project 2
+#### Project 3
